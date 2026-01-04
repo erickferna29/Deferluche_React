@@ -1,0 +1,72 @@
+/* src/styles/ModernDeferluche.css */
+:root {
+  --primary: #33FFC5; /* Tu turquesa clásico */
+  --secondary: #FF33A8; /* Tu rosa */
+  --bg-dark: #0f172a; /* Azul noche profundo */
+  --card-bg: #1e293b;
+  --text-main: #f8fafc;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+}
+
+/* Contenedor responsivo */
+.product-grid {
+  display: grid;
+  /* En lugar de 5 fijos, se ajusta al ancho disponible */
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+}
+
+/* La tarjeta moderna */
+.peluche-card {
+  background: var(--card-bg);
+  border-radius: 24px;
+  padding: 1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  text-align: center;
+}
+
+.peluche-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 25px -5px rgba(51, 255, 197, 0.2);
+  border-color: var(--primary);
+}
+
+.peluche-card img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 18px;
+  margin-bottom: 1rem;
+}
+
+.peluche-card h3 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.5rem;
+  margin: 0.5rem 0;
+}
+
+.price-tag {
+  color: var(--primary);
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+
+.btn-add {
+  background: linear-gradient(135deg, var(--primary), #27d4a4);
+  color: #000;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 1rem;
+}

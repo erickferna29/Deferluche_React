@@ -1,16 +1,22 @@
-//un componente es como una pieza de Lego que se puede reutilizar miles de veces
+import '../styles/StyleModerno.css'; 
+
 export function TarjetaPeluche({ producto }) {
   return (
-    <div className="productBox"> 
-      {/* Usamos la URL de la imagen que viene de tu MySQL */}
+    <article className="peluche-card"> {/* Clase del nuevo CSS */}
       <img 
         src={producto.Imagen} 
-        className="imageInBox" 
         alt={producto.Nombre} 
+        /* El CSS ya le da estilo a la etiqueta img directamente */
       />
-      <p className="text">{producto.Nombre}</p>
-      <p className="text">${Number(producto.Precio).toFixed(2)}</p>
-      <button className="buyBtn">Comprar</button>
-    </div>
+      <h3>{producto.Nombre}</h3> {/* El CSS ya le da estilo al h3 */}
+      
+      <p className="price-tag"> {/* Clase del nuevo CSS */}
+        ${Number(producto.Precio).toFixed(2)}
+      </p>
+      
+      <button className="btn-add"> {/* Clase del nuevo CSS */}
+        AÑADIR AL CARRITO
+      </button>
+    </article>
   );
 }
