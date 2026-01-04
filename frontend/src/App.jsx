@@ -33,26 +33,14 @@ function App() {
       </header>
 
       <main>
-        {cargando ? (
-          <div className="loader">Cargando peluches bien macizos...</div>
-        ) : (
-          /* 3. Aquí usamos tu clase .product-grid del StyleModerno.css */
-          <div className="product-grid">
-            {productos.length > 0 ? (
-              productos.map(peluche => (
-                <TarjetaPeluche 
-                  key={peluche.id} // Siempre usa el ID de tu base de datos
-                  producto={peluche} 
-                />
-              ))
-            ) : (
-              <p className="no-data">No hay peluches en el almacén, toca surtir.</p>
-            )}
-          </div>
-        )}
-      </main>
+  <div className="product-grid"> {/* El padre que tiene el display: grid */}
+    {productos.map(peluche => (
+      <TarjetaPeluche key={peluche.id} producto={peluche} />
+    ))}
+  </div>
+  </main>
     </div>
-  )
+  );
 }
 
 export default App

@@ -14,23 +14,26 @@ body {
   margin: 0;
 }
 
-/* Contenedor responsivo */
 .product-grid {
   display: grid;
-  /* En lugar de 5 fijos, se ajusta al ancho disponible */
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 2rem;
+  /* Bajamos de 240px a 180px para que quepan 5 en pantallas medianas */
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
+  gap: 1.5rem; /* Espacio entre peluches */
   padding: 2rem;
+  width: 100%;
+  box-sizing: border-box; /* Para que el padding no estire la pantalla */
 }
 
-/* La tarjeta moderna */
+/* Asegúrate de que la tarjeta no tenga un ancho fijo que la bloquee */
 .peluche-card {
   background: var(--card-bg);
   border-radius: 24px;
   padding: 1rem;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   border: 1px solid rgba(255, 255, 255, 0.05);
-  text-align: center;
+  display: flex; /* Ayuda a alinear el contenido interno */
+  flex-direction: column;
+  align-items: center;
 }
 
 .peluche-card:hover {
