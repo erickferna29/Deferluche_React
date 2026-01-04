@@ -1,4 +1,17 @@
 <?php
+// 1. Permite el acceso desde cualquier lugar (incluyendo tu React)
+header("Access-Control-Allow-Origin: *");
+// 2. Avisa que mandas datos JSON
+header("Content-Type: application/json; charset=UTF-8");
+// 3. Permite que el navegador haga la "pre-consulta" (OPTIONS)
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+
+// Si el navegador pregunta "¿Puedo entrar?" (método OPTIONS), le decimos que sí y paramos
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    http_response_code(200);
+    exit;
+}
 include_once("connectdb.php");
 $orden = $_GET['orden'] ?? '';
 

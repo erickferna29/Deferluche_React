@@ -1,34 +1,57 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from 'react'
+import { TarjetaPeluche } from './components/TarjetaPeluche'
+import './styles/StyleModerno.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  // 1. Estado para guardar los peluches que vienen de MySQL
+  const [productos, setProductos] = useState([]);
+  const [cargando, setCargando] = useState(true);
+
+  // 2. El "Vigilante" (useEffect) que pide los datos al cargar la página
+  useEffect(() => {
+    // La URL de tu API en el Apache de WSL
+    fetch('http://localhost/backend/obtenerProduct.php')
+      .then(response => {
+        if (!response.ok) throw new Error('Error en la red, checa tu Apache');
+        return response.json(); // Convertimos la respuesta a JSON
+      })
+      .then(data => {
+        setProductos(data); // Guardamos los peluches en el estado
+        setCargando(false);
+      })
+      .catch(error => {
+        console.error("¡Hubo un broncón!", error);
+        setCargando(false);
+      });
+  }, []); // El [] vacío significa: "Solo corre esto una vez al iniciar"
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className="main-layout">
+      <header className="header-moderno">
+        <h1 className="p1">Deferluche</h1>
+        <p className="p4">Catálogo de Peluches:</p>
+      </header>
+
+      <main>
+        {cargando ? (
+          <div className="loader">Cargando peluches bien macizos...</div>
+        ) : (
+          /* 3. Aquí usamos tu clase .product-grid del StyleModerno.css */
+          <div className="product-grid">
+            {productos.length > 0 ? (
+              productos.map(peluche => (
+                <TarjetaPeluche 
+                  key={peluche.id} // Siempre usa el ID de tu base de datos
+                  producto={peluche} 
+                />
+              ))
+            ) : (
+              <p className="no-data">No hay peluches en el almacén, toca surtir.</p>
+            )}
+          </div>
+        )}
+      </main>
+    </div>
   )
 }
 
