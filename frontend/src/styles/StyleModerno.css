@@ -73,35 +73,37 @@ body {
   width: 100%;
   margin-top: 1rem;
 }
-/* Agrégalo a StyleModerno.css */
+
 .search-container {
-  margin: 20px auto;
-  width: 90%;
-  max-width: 600px;
+  margin: 15px auto; /* Centrado automático */
+  width: 95%; /* Ocupa casi todo el ancho en cel */
+  max-width: 600px; /* Pero en lap no se estira de más */
+  padding: 0 10px; /* Margen interno de seguridad */
+  box-sizing: border-box; /* ¡CLAVE! Evita que el padding rompa el ancho */
 }
 
 .search-input {
-  width: 100%;
-  padding: 12px 20px;
+  width: 100%; /* Usa el 100% de su contenedor padre */
+  padding: 14px 25px;
   background: #1e293b;
-  border: 2px solid rgba(51, 255, 197, 0.2);
-  border-radius: 50px; /* Estilo píldora */
+  border: 2px solid rgba(51, 255, 197, 0.3);
+  border-radius: 50px;
   color: white;
-  font-size: 1.1rem;
+  font-size: 1rem;
   outline: none;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box; /* Imprescindible para responsividad */
 }
 
+/* Efecto Neón al dar clic */
 .search-input:focus {
   border-color: #33FFC5;
-  box-shadow: 0 0 15px rgba(51, 255, 197, 0.4);
-  transform: scale(1.02);
+  box-shadow: 0 0 20px rgba(51, 255, 197, 0.4);
+  background: #1e294b; /* Se aclara un poquito */
 }
 
-.no-results {
-  grid-column: 1 / -1;
-  text-align: center;
-  font-size: 1.2rem;
-  color: #FF33A8; /* Tu rosa de acento */
-  margin-top: 50px;
+/* Estilo para el texto de sugerencia (placeholder) */
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+  font-style: italic;
 }
