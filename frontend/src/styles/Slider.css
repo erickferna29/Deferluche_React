@@ -2,20 +2,46 @@
 .slider-container {
   width: 100%;
   max-width: 900px;
-  height: 450px;
+  /* Ajustamos la altura para que se vea bien en cel y lap */
+  aspect-ratio: 16/9; 
+  max-height: 450px;
   margin: 20px auto;
   position: relative;
   overflow: hidden;
   border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(51, 255, 197, 0.3); /* Brillo turquesa */
+  box-shadow: 0 10px 30px rgba(51, 255, 197, 0.2);
+  background: #0f172a; /* Fondo oscuro para evitar el "parpadeo blanco" */
+}
+
+/* --- EL SPINNER DE CARGA (Para el problema del cel) --- */
+.slider-loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin-top: -20px;
+  margin-left: -20px;
+  border: 4px solid rgba(51, 255, 197, 0.3);
+  border-top-color: #33FFC5; /* Color turquesa neón */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  z-index: 1; /* Queda detrás de la imagen */
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 .slide {
   opacity: 0;
-  transition: opacity 1s ease-in-out;
+  transition: opacity 0.8s ease-in-out;
   position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
+  z-index: 2; /* La imagen tapa al spinner cuando aparece */
 }
 
 .slide.active {
@@ -25,27 +51,52 @@
 .slide-img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Para que no se estiren las fotos */
+  object-fit: cover;
 }
 
-.puntos {
+/* --- ESTILOS DE LAS FLECHAS --- */
+.flecha {
   position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 10px;
-}
-
-.punto {
-  width: 12px;
-  height: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(15, 23, 42, 0.5); /* Fondo semitransparente oscuro */
+  color: #33FFC5; /* Color neón */
+  border: 2px solid transparent;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
+  z-index: 10; /* Deben estar hasta arriba de todo */
+  transition: all 0.3s ease;
 }
 
-.punto.activo {
-  background: #33FFC5; /* Tu color insignia */
-  box-shadow: 0 0 10px #33FFC5;
+.flecha:hover {
+  background: #33FFC5;
+  color: #0f172a;
+  box-shadow: 0 0 15px #33FFC5;
 }
+
+.flecha svg {
+  width: 24px;
+  height: 24px;
+}
+
+.izquierda { left: 15px; }
+.derecha { right: 15px; }
+
+/* Ocultar flechas en celulares muy pequeños para que no estorben */
+@media (max-width: 500px) {
+  .flecha {
+    width: 35px;
+    height: 35px;
+  }
+  .flecha svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* (Mantén los estilos de .puntos y .punto que ya tenías abajo) */

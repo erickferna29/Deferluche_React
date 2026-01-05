@@ -30,16 +30,16 @@ function App() {
     <div className="main-layout">
       <header className="header-moderno">
         <h1 className="p1">Deferluche</h1>
-        <p className="p4">Catálogo de Peluches:</p>
       </header>
 
       <main>
         <Slider></Slider>{}
+        <p className="p4">Catálogo de Peluches:</p>
         <div className="product-grid">
         </div>
         <div className="product-grid"> {/* El padre que tiene el display: grid */}
         {productos.map(peluche => (
-        <TarjetaPeluche key={peluche.id} producto={peluche} />
+        <TarjetaPeluche key={peluche.id} producto={peluche} ></TarjetaPeluche>
   ))}
   </div>
   </main>
