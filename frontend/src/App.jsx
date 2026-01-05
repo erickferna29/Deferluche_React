@@ -10,7 +10,7 @@ function App() {
   // 2. El "Vigilante" (useEffect) que pide los datos al cargar la página
   useEffect(() => {
     // La URL de tu API en el Apache de WSL
-    fetch('http://localhost/backend/obtenerProduct.php')
+    fetch('/backend/obtenerProduct.php')
       .then(response => {
         if (!response.ok) throw new Error('Error en la red, checa tu Apache');
         return response.json(); // Convertimos la respuesta a JSON
@@ -20,7 +20,7 @@ function App() {
         setCargando(false);
       })
       .catch(error => {
-        console.error("¡Hubo un broncón!", error);
+        console.error("Error...", error);
         setCargando(false);
       });
   }, []); // El [] vacío significa: "Solo corre esto una vez al iniciar"
