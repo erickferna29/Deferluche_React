@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { TarjetaPeluche } from './components/TarjetaPeluche'
+import { Slider } from './components/Slider'
 import './styles/StyleModerno.css'
 
 function App() {
@@ -33,10 +34,13 @@ function App() {
       </header>
 
       <main>
-  <div className="product-grid"> {/* El padre que tiene el display: grid */}
-    {productos.map(peluche => (
-      <TarjetaPeluche key={peluche.id} producto={peluche} />
-    ))}
+        <Slider></Slider>{}
+        <div className="product-grid">
+        </div>
+        <div className="product-grid"> {/* El padre que tiene el display: grid */}
+        {productos.map(peluche => (
+        <TarjetaPeluche key={peluche.id} producto={peluche} />
+  ))}
   </div>
   </main>
     </div>
