@@ -107,3 +107,259 @@ body {
   color: rgba(255, 255, 255, 0.5);
   font-style: italic;
 }
+/* src/styles/StyleModerno.css */
+
+/* --- LA BARRA DE NAVEGACIÓN --- */
+.navbar-pro {
+  display: flex;
+  justify-content: space-between; /* Separa izquierda y derecha */
+  align-items: center;
+  background: linear-gradient(90deg, #33FFC5, #27d4a4); /* Gradiente turquesa neón */
+  padding: 15px 30px;
+  box-shadow: 0 4px 15px rgba(51, 255, 197, 0.3);
+  position: sticky; /* Se queda pegada arriba al hacer scroll */
+  top: 0;
+  z-index: 100; /* Siempre por encima de todo */
+}
+
+/* --- IZQUIERDA --- */
+.logo-text {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #0f172a; /* Color oscuro para contraste */
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+/* --- CENTRO (EL BUSCADOR) --- */
+.navbar-center {
+  flex-grow: 1; /* Ocupa el espacio disponible en el centro */
+  display: flex;
+  justify-content: center;
+  margin: 0 20px; /* Espacio a los lados */
+}
+
+.search-bar-container {
+  position: relative;
+  width: 100%;
+  max-width: 500px; /* Ancho máximo del buscador */
+}
+
+.search-input-pro {
+  width: 100%;
+  padding: 10px 40px 10px 20px; /* Espacio para el icono a la derecha */
+  border: none;
+  border-radius: 25px;
+  background: rgba(255, 255, 255, 0.9); /* Blanco semitransparente */
+  color: #0f172a;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.search-input-pro:focus {
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.2);
+}
+
+.search-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  color: #64748b;
+}
+
+/* --- LA NAVBAR PRO DEFINITIVA --- */
+.navbar-pro {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #33FFC5; /* Tu turquesa insignia */
+  padding: 10px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  min-height: 60px;
+  gap: 15px;
+}
+
+/* --- LOGO --- */
+.logo-text {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
+  flex-shrink: 0; /* Que no se achique */
+}
+
+/* --- BUSCADOR (EL CENTRO) --- */
+.navbar-center {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  max-width: 600px;
+}
+
+.search-bar-container {
+  position: relative;
+  width: 100%;
+}
+
+.search-input-pro {
+  width: 100%;
+  padding: 8px 35px 8px 15px;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 20px;
+  background: white;
+  font-size: 0.9rem;
+  outline: none;
+}
+
+.search-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  color: #64748b;
+}
+
+/* src/styles/StyleModerno.css */
+
+/* --- ESTILOS BASE (PARA PC/LAPTOP) --- */
+.navbar-pro {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #33FFC5;
+  padding: 10px 25px; /* Buen espacio en PC */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.logo-text {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.6rem; /* Logo grande y chido en PC */
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.navbar-center {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  margin: 0 20px; /* Espacio a los lados del buscador en PC */
+}
+
+.search-bar-container {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+}
+
+.search-input-pro {
+  width: 100%;
+  padding: 10px 40px 10px 20px;
+  border: none;
+  border-radius: 25px;
+  background: rgba(255, 255, 255, 0.95);
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.search-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px; /* Lupa de buen tamaño en PC */
+  height: 20px;
+  color: #64748b;
+  pointer-events: none; /* Para que no estorbe al dar clic */
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Buen espacio entre links en PC */
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #0f172a;
+  font-weight: bold;
+  font-size: 0.95rem; /* Links legibles en PC */
+  font-family: 'Oswald', sans-serif;
+  transition: color 0.2s;
+}
+
+.cart-icon {
+  width: 26px; /* Carrito grande en PC */
+  height: 26px;
+  color: #0f172a;
+  cursor: pointer;
+}
+
+/* --- 📱 AJUSTE FINAL DE PRECISIÓN (Móvil) --- */
+@media (max-width: 768px) {
+  .navbar-pro {
+    padding: 5px 6px;
+    gap: 3px; /* Espacio mínimo entre bloques */
+  }
+
+  .logo-text {
+    font-size: 0.8rem;
+    flex-shrink: 0;
+    margin-right: -4px; /* 👈 Jalamos el buscador aún más a la izquierda */
+  }
+
+  .navbar-center {
+    /* REDUCCIÓN CLAVE: Bajamos a 95px para que NOVEDADES no sufra */
+    max-width: 95px; 
+    flex-grow: 1;
+  }
+
+  .search-input-pro {
+    /* Ajustamos el espacio para que el texto no choque con la lupa */
+    padding: 4px 22px 4px 6px; 
+    font-size: 0.7rem; 
+    height: 26px; /* Un poco más estilizada */
+    border-radius: 8px;
+  }
+
+  .search-icon {
+    width: 10px; /* 👈 Lupa miniatura pero funcional */
+    height: 10px;
+    right: 1px; /* 👈 Bien pegadita al borde derecho */
+    top: 52%; /* Ajuste visual de centrado */
+  }
+
+  .navbar-right {
+    gap: 4px; /* Links más compactos */
+    flex-shrink: 0;
+  }
+
+  .nav-link {
+    font-size: 0.55rem;
+    display: block !important;
+    white-space: nowrap;
+    letter-spacing: -0.1px; /* Juntamos un pelo las letras para ganar espacio */
+  }
+
+  .cart-icon {
+    width: 16px;
+    height: 16px;
+  }
+}
