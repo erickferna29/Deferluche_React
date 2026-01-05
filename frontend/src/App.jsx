@@ -6,6 +6,7 @@ import './styles/StyleModerno.css'
 function App() {
   // 1. Estado para guardar los peluches que vienen de MySQL
   const [productos, setProductos] = useState([]);
+  const [busqueda, setBusqueda] = useState(""); // Estado para el texto del buscador
   const [cargando, setCargando] = useState(true);
 
   // 2. El "Vigilante" (useEffect) que pide los datos al cargar la página
@@ -26,23 +27,37 @@ function App() {
       });
   }, []); // El [] vacío significa: "Solo corre esto una vez al iniciar"
 
+  const productosFiltrados = productos.filter(p => 
+    p.Nombre.toLowerCase().includes(busqueda.toLowerCase())
+  );
   return (
     <div className="main-layout">
       <header className="header-moderno">
         <h1 className="p1">Deferluche</h1>
+
+        <div className="search-container">
+          <input 
+            type="text" 
+            placeholder="Buscar peluche" 
+            className="search-input"
+            value={busqueda}
+            onChange={(e) => setBusqueda(e.target.value)}
+          />
+        </div>
       </header>
 
-      <main>
-        <Slider></Slider>{}
-        <p className="p4">Catálogo de Peluches:</p>
+        <main>
+        <Slider />
         <div className="product-grid">
+          {productosFiltrados.length > 0 ? (
+            productosFiltrados.map(p => (
+              <TarjetaPeluche key={p.id} producto={p} />
+            ))
+          ) : (
+            <p className="no-results">Peluche No Encontrado...</p>
+          )}
         </div>
-        <div className="product-grid"> {/* El padre que tiene el display: grid */}
-        {productos.map(peluche => (
-        <TarjetaPeluche key={peluche.id} producto={peluche} ></TarjetaPeluche>
-  ))}
-  </div>
-  </main>
+      </main>
     </div>
   );
 }

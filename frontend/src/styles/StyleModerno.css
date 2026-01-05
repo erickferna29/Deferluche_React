@@ -73,3 +73,35 @@ body {
   width: 100%;
   margin-top: 1rem;
 }
+/* Agrégalo a StyleModerno.css */
+.search-container {
+  margin: 20px auto;
+  width: 90%;
+  max-width: 600px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 20px;
+  background: #1e293b;
+  border: 2px solid rgba(51, 255, 197, 0.2);
+  border-radius: 50px; /* Estilo píldora */
+  color: white;
+  font-size: 1.1rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  border-color: #33FFC5;
+  box-shadow: 0 0 15px rgba(51, 255, 197, 0.4);
+  transform: scale(1.02);
+}
+
+.no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-size: 1.2rem;
+  color: #FF33A8; /* Tu rosa de acento */
+  margin-top: 50px;
+}
