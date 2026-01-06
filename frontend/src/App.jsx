@@ -8,6 +8,7 @@ function App() {
   const [productos, setProductos] = useState([]);
   const [busqueda, setBusqueda] = useState(""); // Estado para el texto del buscador
   const [cargando, setCargando] = useState(true);
+  const [orden, setOrden] = useState("");
 
   // 2. El "Vigilante" (useEffect) que pide los datos al cargar la página
   useEffect(() => {
@@ -27,9 +28,22 @@ function App() {
       });
   }, []); // El [] vacío significa: "Solo corre esto una vez al iniciar"
 
+  //buscar productos
   const productosFiltrados = productos.filter(p => 
     p.Nombre.toLowerCase().includes(busqueda.toLowerCase())
   );
+
+  //ordenar productos
+  const productosFinales = productos
+    .filter(p => p.Nombre.toLowerCase().includes(busqueda.toLowerCase()))
+    .sort((a, b) => {
+      if (orden === "precio-menor") return Number(a.Precio) - Number(b.Precio);
+      if (orden === "precio-mayor") return Number(b.Precio) - Number(a.Precio);
+      if (orden === "nombre-az") return a.Nombre.localeCompare(b.Nombre);
+      if (orden === "nombre-za") return b.Nombre.localeCompare(a.Nombre);
+      return 0; // Sin orden por defecto
+    });
+
   return (
     <div className="main-layout">
     {/* LA NUEVA BARRA DE NAVEGACIÓN ESTILO PRO */}
@@ -69,17 +83,32 @@ function App() {
         </a>
       </div>
     </header>
-
+    
         <main>
-        <Slider />
+        <Slider></Slider>
+        <div className="toolbar">
+          <h2 className="section-title">Todos los Peluches</h2>
+          
+          <div className="sort-container">
+            <label>Ordenar Por:</label>
+            <select 
+              className="sort-select" 
+              value={orden} 
+              onChange={(e) => setOrden(e.target.value)}
+            >
+              <option value="">Seleccionar:</option>
+              <option value="precio-menor">Precio: Menor a mayor</option>
+              <option value="precio-mayor">Precio: Mayor a menor</option>
+              <option value="nombre-az">Nombre: A-Z</option>
+              <option value="nombre-za">Nombre: Z-A</option>
+            </select>
+          </div>
+        </div>
+
         <div className="product-grid">
-          {productosFiltrados.length > 0 ? (
-            productosFiltrados.map(p => (
-              <TarjetaPeluche key={p.id} producto={p} />
-            ))
-          ) : (
-            <p className="no-results">Peluche No Encontrado...</p>
-          )}
+          {productosFinales.map(peluche => (
+            <TarjetaPeluche key={peluche.id} producto={peluche} />
+          ))}
         </div>
       </main>
     </div>

@@ -363,3 +363,55 @@ body {
     height: 16px;
   }
 }
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  margin-top: 20px;
+  color: white;
+}
+
+.section-title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.5rem;
+}
+
+.sort-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sort-select {
+  background: #1e293b;
+  color: #33FFC5; /* Tu turquesa neón */
+  border: 1px solid rgba(51, 255, 197, 0.3);
+  padding: 8px 15px;
+  border-radius: 10px;
+  outline: none;
+  cursor: pointer;
+  font-family: 'Oswald', sans-serif;
+  transition: all 0.3s ease;
+}
+
+.sort-select:focus {
+  border-color: #33FFC5;
+  box-shadow: 0 0 10px rgba(51, 255, 197, 0.3);
+}
+
+/* Responsividad para el cel */
+@media (max-width: 768px) {
+  .toolbar {
+    flex-direction: column;
+    gap: 10px;
+    padding: 0 1rem;
+    align-items: flex-start;
+  }
+  
+  .sort-select {
+    width: 100%;
+    font-size: 0.9rem;
+  }
+}
