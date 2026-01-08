@@ -1,6 +1,6 @@
 /* src/styles/ModernDeferluche.css */
 :root {
-  --primary: #33FFC5; /* Tu turquesa clásico */
+  --primary: #FF6A47; /* Tu turquesa clásico */
   --secondary: #FF33A8; /* Tu rosa */
   --bg-dark: #0f172a; /* Azul noche profundo */
   --card-bg: #1e293b;
@@ -97,7 +97,7 @@ body {
 
 /* Efecto Neón al dar clic */
 .search-input:focus {
-  border-color: #33FFC5;
+  border-color: #FF6A47;
   box-shadow: 0 0 20px rgba(51, 255, 197, 0.4);
   background: #1e294b; /* Se aclara un poquito */
 }
@@ -114,7 +114,7 @@ body {
   display: flex;
   justify-content: space-between; /* Separa izquierda y derecha */
   align-items: center;
-  background: linear-gradient(90deg, #33FFC5, #27d4a4); /* Gradiente turquesa neón */
+  background: linear-gradient(90deg, #FF6A47, #27d4a4); /* Gradiente turquesa neón */
   padding: 15px 30px;
   box-shadow: 0 4px 15px rgba(51, 255, 197, 0.3);
   position: sticky; /* Se queda pegada arriba al hacer scroll */
@@ -178,7 +178,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #33FFC5; /* Tu turquesa insignia */
+  background: #FF6A47; /* Tu turquesa insignia */
   padding: 10px 20px;
   position: sticky;
   top: 0;
@@ -238,7 +238,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #33FFC5;
+  background: #FF6A47;
   padding: 10px 25px; /* Buen espacio en PC */
   position: sticky;
   top: 0;
@@ -386,7 +386,7 @@ body {
 
 .sort-select {
   background: #1e293b;
-  color: #33FFC5; /* Tu turquesa neón */
+  color: #FF6A47; /* Tu turquesa neón */
   border: 1px solid rgba(51, 255, 197, 0.3);
   padding: 8px 15px;
   border-radius: 10px;
@@ -397,7 +397,7 @@ body {
 }
 
 .sort-select:focus {
-  border-color: #33FFC5;
+  border-color: #FF6A47;
   box-shadow: 0 0 10px rgba(51, 255, 197, 0.3);
 }
 
@@ -414,4 +414,46 @@ body {
     width: 100%;
     font-size: 0.9rem;
   }
+}
+.drawer {
+  position: fixed;
+  top: 0;
+  right: -300px; /* Escondido a la derecha */
+  width: 280px;
+  height: 100vh;
+  background: rgba(15, 23, 42, 0.95); /* Fondo oscuro giga optimizado */
+  backdrop-filter: blur(10px); /* Efecto de vidrio */
+  z-index: 2000;
+  transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 60px 20px;
+  border-left: 2px solid #FF6A47;
+}
+
+.drawer.open { right: 0; } /* Se desliza hacia adentro */
+
+.menu-item {
+  color: white;
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.4rem;
+  padding: 15px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+}
+
+.sub-menu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+  padding-left: 20px;
+}
+
+.sub-menu.show { max-height: 300px; }
+
+.sub-menu li {
+  color: #FF6A47; /* Tu turquesa */
+  padding: 10px 0;
+  font-size: 1.1rem;
+  cursor: pointer;
 }

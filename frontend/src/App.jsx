@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { TarjetaPeluche } from './components/TarjetaPeluche'
 import { Slider } from './components/Slider'
+import { MenuLateral } from './components/MenuLateral'
 import './styles/StyleModerno.css'
 
 function App() {
@@ -9,6 +10,8 @@ function App() {
   const [busqueda, setBusqueda] = useState(""); // Estado para el texto del buscador
   const [cargando, setCargando] = useState(true);
   const [orden, setOrden] = useState("");
+  const [menuAbierto, setMenuAbierto] = useState(false);
+  const [subCatAbierta, setSubCatAbierta] = useState(false);
 
   // 2. El "Vigilante" (useEffect) que pide los datos al cargar la página
   useEffect(() => {
@@ -86,6 +89,7 @@ function App() {
     
         <main>
         <Slider></Slider>
+        
         <div className="toolbar">
           <h2 className="section-title">Todos los Peluches</h2>
           
