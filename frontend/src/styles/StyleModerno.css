@@ -457,3 +457,260 @@ body {
   font-size: 1.1rem;
   cursor: pointer;
 }
+/* Estilo base para los botones de icono */
+.icon-btn {
+  background: none;
+  border: none;
+  color: #0f172a; /* Color oscuro para resaltar sobre el coral */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  transition: transform 0.2s;
+}
+
+.icon-btn:hover {
+  transform: scale(1.1);
+}
+
+.icon-btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Ajuste de la Navbar para que todo quepa */
+.navbar-pro {
+  background: #FF6A47; /* Tu color sandía */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 15px;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Responsividad para celular */
+@media (max-width: 768px) {
+  .logo-text {
+    font-size: 1rem;
+  }
+  .navbar-center {
+    max-width: 120px; /* Buscador más chico en cel para que quepan los iconos */
+  }
+}
+/* --- EL DRAWER (MENÚ LATERAL) --- */
+.drawer {
+  position: fixed;
+  top: 0;
+  right: -300px; /* Empieza escondido a la derecha */
+  width: 280px;
+  height: 100vh;
+  background: rgba(15, 23, 42, 0.98); /* Fondo oscuro Prime */
+  backdrop-filter: blur(10px);
+  z-index: 2000;
+  transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 60px 20px;
+  border-left: 3px solid #FF6A47; /* Borde color sandía */
+}
+
+.drawer.open {
+  right: 0; /* Al abrirse, se desliza al borde derecho */
+}
+
+/* El fondo que se oscurece */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 1500;
+}
+.overlay.visible { opacity: 1; visibility: visible; }
+
+/* Estilo de la lista interna */
+.menu-item {
+  color: white;
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.4rem;
+  padding: 15px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+}
+
+.sub-menu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+  padding-left: 20px;
+}
+.sub-menu.show { max-height: 300px; margin-top: 10px; }
+
+.sub-menu li {
+  color: #FF6A47; /* Color sandía para las categorías */
+  padding: 10px 0;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+/* --- EL DRAWER (MENÚ LATERAL) --- */
+.drawer {
+  position: fixed;
+  top: 0;
+  right: -300px; /* Escondido a la derecha */
+  width: 280px;
+  height: 100vh;
+  background: rgba(15, 23, 42, 0.98); /* Fondo oscuro Prime */
+  backdrop-filter: blur(10px);
+  z-index: 2000;
+  transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 60px 20px;
+  border-left: 3px solid #FF6A47; /* Borde color sandía */
+}
+
+/* Cuando tiene la clase .open, se mueve a la posición 0 */
+.drawer.open {
+  right: 0; 
+}
+
+/* El fondo oscuro que tapa el sitio */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 1500;
+}
+.overlay.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Asegúrate de que los iconos tengan tamaño */
+.icon-btn svg {
+  width: 28px;  /* Ajusta según prefieras */
+  height: 28px;
+  display: block;
+}
+
+/* Evita que el botón se comprima */
+.menu-toggle {
+  min-width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+.navbar-pro {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  background-color: #ff6b35; /* El color naranja que tienes */
+  height: 70px; /* Dale una altura fija para evitar colapsos */
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  flex: 1; /* Le da su propio espacio */
+  gap: 15px; /* Separa el botón del texto DEFERLUCHE */
+}
+
+.navbar-center {
+  flex: 2; /* El buscador toma más espacio */
+  display: flex;
+  justify-content: center;
+}
+
+.navbar-right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+}
+/* Busca la clase que controla el Menú Lateral */
+.menu-lateral-container { /* o el nombre que le hayas puesto */
+  position: fixed;
+  top: 0;
+  
+  /* CAMBIA ESTO: De right a left */
+  left: 0; 
+  right: auto; 
+  
+  height: 100vh;
+  width: 300px; /* o el ancho que uses */
+  
+  /* CAMBIA LA TRANSICIÓN: Para que se esconda hacia la IZQUIERDA */
+  transform: translateX(-100%); 
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
+}
+
+/* Cuando el menú esté abierto */
+.menu-lateral-container.abierto {
+  transform: translateX(0);
+}
+/* El contenedor del menú */
+.drawer {
+  position: fixed;
+  top: 0;
+  left: 0;               /* <--- CAMBIO: Ahora se ancla a la izquierda */
+  width: 300px;          /* Ancho del menú */
+  height: 100vh;
+  background-color: #1a1a1a; 
+  z-index: 1000;
+  
+  /* Lo escondemos hacia la IZQUIERDA */
+  transform: translateX(-100%); 
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 5px 0 15px rgba(0, 0, 0, 0.5);
+}
+
+/* Cuando el menú tiene la clase 'open' */
+.drawer.open {
+  transform: translateX(0); /* Entra a su posición original */
+}
+
+/* El fondo oscuro */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px); /* Se ve muy pro con este desenfoque */
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+}
+
+.overlay.visible {
+  opacity: 1;
+  visibility: visible;
+}

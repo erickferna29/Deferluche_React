@@ -12,7 +12,8 @@ function App() {
   const [orden, setOrden] = useState("");
   const [menuAbierto, setMenuAbierto] = useState(false);
   const [subCatAbierta, setSubCatAbierta] = useState(false);
-
+  const [categoriaSel, setCategoriaSel] = useState("Todos"); // Estado para filtrar categorías
+  const [carrito, setCarrito] = useState([]); // Para que el icono ya tenga vida
   // 2. El "Vigilante" (useEffect) que pide los datos al cargar la página
   useEffect(() => {
     // La URL de tu API en el Apache de WSL
@@ -35,56 +36,75 @@ function App() {
   const productosFiltrados = productos.filter(p => 
     p.Nombre.toLowerCase().includes(busqueda.toLowerCase())
   );
-
-  //ordenar productos
-  const productosFinales = productos
-    .filter(p => p.Nombre.toLowerCase().includes(busqueda.toLowerCase()))
+  //mejora Filtra por búsqueda Y por categoría seleccionada
+const productosFinales = productos
+    .filter(p => {
+      const cumpleNombre = p.Nombre.toLowerCase().includes(busqueda.toLowerCase());
+      const cumpleCat = categoriaSel === "Todos" || p.Categoria === categoriaSel;
+      return cumpleNombre && cumpleCat;
+    })
     .sort((a, b) => {
       if (orden === "precio-menor") return Number(a.Precio) - Number(b.Precio);
       if (orden === "precio-mayor") return Number(b.Precio) - Number(a.Precio);
       if (orden === "nombre-az") return a.Nombre.localeCompare(b.Nombre);
       if (orden === "nombre-za") return b.Nombre.localeCompare(a.Nombre);
-      return 0; // Sin orden por defecto
+      return 0; //sin orden por defecto
     });
 
   return (
     <div className="main-layout">
-    {/* LA NUEVA BARRA DE NAVEGACIÓN ESTILO PRO */}
-    <header className="navbar-pro">
-      
-      {/* SECCIÓN IZQUIERDA: LOGO */}
-      <div className="navbar-left">
-        <h1 className="logo-text">DEFERLUCHE</h1>
-      </div>
-
-      {/* SECCIÓN CENTRAL: BUSCADOR */}
-      <div className="navbar-center">
-        <div className="search-bar-container">
-          <input 
-            type="text" 
-            placeholder="Buscar peluche" 
-            className="search-input-pro"
-            value={busqueda}
-            onChange={(e) => setBusqueda(e.target.value)}
-          />
-          {/* Icono de lupa (se ve más chido) */}
-          <svg xmlns="http://www.w3.org/2000/svg" className="search-icon" viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
-          </svg>
+      {/* 1. EL MENÚ LATERAL (DRAWER) */}
+<MenuLateral 
+        abierto={menuAbierto} 
+        cerrar={() => setMenuAbierto(false)}
+        subCat={subCatAbierta}
+        toggleSubCat={() => setSubCatAbierta(!subCatAbierta)}
+        setCat={setCategoriaSel} // Esta función es la que quita el slider
+      />
+      <header className="navbar-pro">
+      {/* SECCIÓN IZQUIERDA: MENÚ + LOGO */}
+        <div className="navbar-left">
+          {/* AQUÍ ESTÁ EL TRUCO: El onClick para abrirlo */}
+          <button onClick={() => setMenuAbierto(true)} className="icon-btn menu-toggle">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+          </button>
+          <h1 className="logo-text" onClick={() => setCategoriaSel("Todos")}>DEFERLUCHE</h1>
         </div>
-      </div>
 
-      {/* SECCIÓN DERECHA: ENLACES Y CARRITO */}
-      <div className="navbar-right">
-        <a href="#" className="nav-link">NOVEDADES</a>
-        <a href="#" className="nav-link">CATEGORIAS</a>
-        <a href="#" className="cart-icon-container">
-          <svg xmlns="http://www.w3.org/2000/svg"className="cart-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-          </svg>
-          {/* Aquí podrías poner un contador en el futuro */}
-        </a>
-      </div>
+        {/* SECCIÓN CENTRAL: BUSCADOR (Sigue siendo el corazón) */}
+        <div className="navbar-center">
+          <div className="search-bar-container">
+            <input 
+              type="text" 
+              placeholder="Buscar peluche" 
+              className="search-input-pro"
+              value={busqueda}
+              onChange={(e) => setBusqueda(e.target.value)}
+            />
+            <svg xmlns="http://www.w3.org/2000/svg" className="search-icon" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
+            </svg>
+          </div>
+        </div>
+
+        {/* SECCIÓN DERECHA: USUARIO Y CARRITO */}
+        <div className="navbar-right">
+          {/* EL MONITO (USUARIO) */}
+          <button className="icon-btn user-btn" title="Iniciar Sesión">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+            </svg>
+          </button>
+
+          {/* EL CARRITO */}
+          <a href="#" className="cart-icon-container">
+            <svg xmlns="http://www.w3.org/2000/svg" className="cart-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+          </a>
+        </div>
     </header>
     
         <main>
