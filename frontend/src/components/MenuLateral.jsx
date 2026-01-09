@@ -10,9 +10,7 @@ export function MenuLateral({ abierto, cerrar, subCat, toggleSubCat, setCat }) {
       <div className={`overlay ${abierto ? 'visible' : ''}`} onClick={cerrar}></div>
       
       {/* El Drawer que sale desde la derecha */}
-      <nav className={`drawer ${abierto ? 'open' : ''}`}>
-        <button className="close-btn" onClick={cerrar}>×</button>
-        
+      <nav className={`drawer ${abierto ? 'open' : ''}`}>        
         <ul className="menu-list">
           {/* Opción 1: Novedades */}
           <li><a href="#" className="menu-item">NOVEDADES</a></li>
