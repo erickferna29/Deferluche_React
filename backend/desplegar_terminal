@@ -1,1 +1,4 @@
 ssh -R 80:localhost:5173 serveo.net
+
+--tunel mas seguro con https
+cloudflared tunnel --url http://localhost:5173
