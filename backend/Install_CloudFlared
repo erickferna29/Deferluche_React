@@ -1,0 +1,11 @@
+*descargar
+
+cloudflare/clouderickferna29@ASUS:~/github/Deferluche_React$ wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb
+
+*instalar
+
+sudo dpkg -i cloudflared-linux-amd64.deb
+
+*crear tunel
+
+cloudflared tunnel --url http://localhost:5173

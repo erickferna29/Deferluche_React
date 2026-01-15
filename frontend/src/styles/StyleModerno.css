@@ -141,6 +141,7 @@ body {
 }
 
 .search-bar-container {
+  display: flex;
   position: relative;
   width: 100%;
   max-width: 500px; /* Ancho máximo del buscador */
@@ -161,16 +162,6 @@ body {
 .search-input-pro:focus {
   background: #ffffff;
   box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.2);
-}
-
-.search-icon {
-  position: absolute;
-  right: 15px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 20px;
-  height: 20px;
-  color: #64748b;
 }
 
 /* --- LA NAVBAR PRO DEFINITIVA --- */
@@ -221,18 +212,6 @@ body {
   outline: none;
 }
 
-.search-icon {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 18px;
-  height: 18px;
-  color: #64748b;
-}
-
-/* src/styles/StyleModerno.css */
-
 /* --- ESTILOS BASE (PARA PC/LAPTOP) --- */
 .navbar-pro {
   display: flex;
@@ -278,10 +257,10 @@ body {
   outline: none;
   transition: all 0.3s ease;
 }
-
+/*Diseño para la lupa en pc*/
 .search-icon {
   position: absolute;
-  right: 15px;
+  right: 5px;
   top: 50%;
   transform: translateY(-50%);
   width: 20px; /* Lupa de buen tamaño en PC */
@@ -338,12 +317,14 @@ body {
     height: 26px; /* Un poco más estilizada */
     border-radius: 8px;
   }
-
+  /*Diseño de lupa para celular*/
   .search-icon {
-    width: 10px; /* 👈 Lupa miniatura pero funcional */
+    width: 10px; 
     height: 10px;
-    right: 1px; /* 👈 Bien pegadita al borde derecho */
-    top: 52%; /* Ajuste visual de centrado */
+    top: 52%; /* Ajuste visual centrado */
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    opacity: 1;
+    right: 5px;
   }
 
   .navbar-right {
@@ -713,4 +694,63 @@ body {
 .overlay.visible {
   opacity: 1;
   visibility: visible;
+}
+/* Aplica esto a todos los botones que contienen iconos en el navbar */
+.navbar-pro .icon-btn svg, 
+.navbar-pro .cart-icon {
+  width: 24px;   /* Tamaño estándar de UI moderna */
+  height: 24px;
+  display: block;
+  flex-shrink: 0; /* Evita que se aplasten en pantallas chicas */
+}
+
+.navbar-pro .icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px; /* Área de toque cómoda para el dedo */
+}
+.navbar-pro {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px; /* Un poco menos de espacio a los lados en móvil */
+  height: 60px;    /* Altura fija para que nada se mueva */
+  gap: 8px;        /* Espacio uniforme entre elementos */
+}
+
+.navbar-left, .navbar-right {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0; /* Que no se encojan los botones */
+}
+
+.icono-oculto {
+  opacity: 0;
+  pointer-events: none; /* Para que no interfiera con el click */
+  transform: scale(0.5); /* Opcional: hace que se haga chiquita al desaparecer */
+}
+.sub-menu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+  list-style: none;
+  padding-left: 20px;
+  background: #2a2a2a; /* Un tono un poco diferente para que se note la jerarquía */
+}
+
+.sub-menu.show {
+  max-height: 500px; /* Suficiente para que quepan las opciones */
+  padding-bottom: 10px;
+}
+
+.sub-menu li {
+  padding: 8px 0;
+  color: #ccc;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.sub-menu li:hover {
+  color: #ff6b35;
 }

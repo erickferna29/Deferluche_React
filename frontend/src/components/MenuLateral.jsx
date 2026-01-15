@@ -1,35 +1,62 @@
-// src/components/MenuLateral.jsx
+import { useState } from 'react';
 import '../styles/StyleModerno.css';
 
-export function MenuLateral({ abierto, cerrar, subCat, toggleSubCat, setCat }) {
-  const categorias = ['Todos', 'Anime', 'Caricaturas', 'Películas', 'VideoJuegos'];
+export function MenuLateral({ abierto, cerrar, setCat, setSubCat }) {
+  // Estado para saber qué categoría principal está expandida
+  const [catAbierta, setCatAbierta] = useState(null);
+
+  const menuEstructura = [
+    {
+      nombre: 'Muñecas',
+      subcategorias: ['Monster High', 'Barbie', 'Bratz']
+    },
+    {
+      nombre: 'Peluches',
+      subcategorias: ['Anime', 'Videojuegos', 'Disney']
+    },
+    {
+      nombre: 'Figuras',
+      subcategorias: ['Funko Pop', 'Action Figures']
+    }
+  ];
+
+  const handleToggle = (nombre) => {
+    // Si picas la misma, se cierra; si no, se abre la nueva
+    setCatAbierta(catAbierta === nombre ? null : nombre);
+  };
 
   return (
     <>
-      {/* El fondo oscuro que bloquea el resto de la página */}
       <div className={`overlay ${abierto ? 'visible' : ''}`} onClick={cerrar}></div>
       
-      {/* El Drawer que sale desde la derecha */}
       <nav className={`drawer ${abierto ? 'open' : ''}`}>        
         <ul className="menu-list">
-          {/* Opción 1: Novedades */}
-          <li><a href="#" className="menu-item">NOVEDADES</a></li>
-          
-          {/* Opción 2: Categorías con lista desplegable */}
-          <li className="menu-item-wrapper">
-            <div className="menu-item" onClick={toggleSubCat}>
-              CATEGORÍAS <span>{subCat ? '−' : '+'}</span>
+          {/* Opción para resetear todo */}
+          <li>
+            <div className="menu-item" onClick={() => { setCat("Todos"); setSubCat("Todos"); cerrar(); }}>
+              VER TODO EL CATÁLOGO
             </div>
-            
-            {/* La lista que se despliega (sin imágenes para que sea giga limpia) */}
-            <ul className={`sub-menu ${subCat ? 'show' : ''}`}>
-              {categorias.map(c => (
-                <li key={c} onClick={() => { setCat(c); cerrar(); }}>
-                  {c}
-                </li>
-              ))}
-            </ul>
           </li>
+
+          {/* Mapeo de la nueva estructura tipo Acordeón */}
+          {menuEstructura.map((cat) => (
+            <li key={cat.nombre} className="menu-item-wrapper">
+              <div className="menu-item" onClick={() => handleToggle(cat.nombre)}>
+                {cat.nombre.toUpperCase()} <span>{catAbierta === cat.nombre ? ' −' : ' +'}</span>
+              </div>
+              
+              <ul className={`sub-menu ${catAbierta === cat.nombre ? 'show' : ''}`}>
+                <li onClick={() => { setCat(cat.nombre); setSubCat('Todos'); cerrar(); }}>
+                  Ver todos
+                </li>
+                {cat.subcategorias.map((sub) => (
+                  <li key={sub} onClick={() => { setCat(cat.nombre); setSubCat(sub); cerrar(); }}>
+                    {sub}
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))}
         </ul>
       </nav>
     </>

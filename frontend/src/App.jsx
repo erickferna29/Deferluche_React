@@ -13,6 +13,7 @@ function App() {
   const [menuAbierto, setMenuAbierto] = useState(false);
   const [subCatAbierta, setSubCatAbierta] = useState(false);
   const [categoriaSel, setCategoriaSel] = useState("Todos"); // Estado para filtrar categorías
+  const [subCategoriaSel, setSubCategoriaSel] = useState("Todos");
   const [carrito, setCarrito] = useState([]); // Para que el icono ya tenga vida
   // 2. El "Vigilante" (useEffect) que pide los datos al cargar la página
   useEffect(() => {
@@ -37,30 +38,28 @@ function App() {
     p.Nombre.toLowerCase().includes(busqueda.toLowerCase())
   );
   //mejora Filtra por búsqueda Y por categoría seleccionada
-const productosFinales = productos
-    .filter(p => {
-      const cumpleNombre = p.Nombre.toLowerCase().includes(busqueda.toLowerCase());
-      const cumpleCat = categoriaSel === "Todos" || p.Categoria === categoriaSel;
-      return cumpleNombre && cumpleCat;
-    })
-    .sort((a, b) => {
-      if (orden === "precio-menor") return Number(a.Precio) - Number(b.Precio);
-      if (orden === "precio-mayor") return Number(b.Precio) - Number(a.Precio);
-      if (orden === "nombre-az") return a.Nombre.localeCompare(b.Nombre);
-      if (orden === "nombre-za") return b.Nombre.localeCompare(a.Nombre);
-      return 0; //sin orden por defecto
-    });
+const productosFinales = productos.filter(p => {
+  const cumpleNombre = p.Nombre.toLowerCase().includes(busqueda.toLowerCase());
+  
+  // Filtro de Categoría (Peluches, Muñecas, etc.)
+  const cumpleCat = categoriaSel === "Todos" || p.Categoria === categoriaSel;
+  
+  // Filtro de Subcategoría (Monster High, Anime, etc.)
+  // IMPORTANTE: p.Sub_Categoria debe coincidir con el nombre de tu columna en MySQL
+  const cumpleSubCat = subCategoriaSel === "Todos" || p.Sub_Categoria === subCategoriaSel;
 
+  return cumpleNombre && cumpleCat && cumpleSubCat;
+});
+    
   return (
     <div className="main-layout">
       {/* 1. EL MENÚ LATERAL (DRAWER) */}
 <MenuLateral 
-        abierto={menuAbierto} 
-        cerrar={() => setMenuAbierto(false)}
-        subCat={subCatAbierta}
-        toggleSubCat={() => setSubCatAbierta(!subCatAbierta)}
-        setCat={setCategoriaSel} // Esta función es la que quita el slider
-      />
+      abierto={menuAbierto} 
+      cerrar={() => setMenuAbierto(false)}
+      setCat={setCategoriaSel}
+      setSubCat={setSubCategoriaSel} // <--- PASAMOS LA FUNCIÓN
+    />
       <header className="navbar-pro">
       {/* SECCIÓN IZQUIERDA: MENÚ + LOGO */}
         <div className="navbar-left">
@@ -78,14 +77,21 @@ const productosFinales = productos
           <div className="search-bar-container">
             <input 
               type="text" 
-              placeholder="Buscar peluche" 
+              placeholder="Buscar" 
               className="search-input-pro"
               value={busqueda}
               onChange={(e) => setBusqueda(e.target.value)}
             />
-            <svg xmlns="http://www.w3.org/2000/svg" className="search-icon" viewBox="0 0 20 20" fill="currentColor">
+          {busqueda === "" && (
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              className={`search-icon ${busqueda !== "" ? 'icono-oculto' : ''}`} 
+              viewBox="0 0 20 20" 
+              fill="currentColor"
+            >
               <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
             </svg>
+          )}
           </div>
         </div>
 
@@ -111,7 +117,7 @@ const productosFinales = productos
         <Slider></Slider>
         
         <div className="toolbar">
-          <h2 className="section-title">Todos los Peluches</h2>
+          <h2 className="section-title">Productos</h2>
           
           <div className="sort-container">
             <label>Ordenar Por:</label>
