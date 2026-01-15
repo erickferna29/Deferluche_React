@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { TarjetaPeluche } from './components/TarjetaPeluche'
 import { Slider } from './components/Slider'
 import { MenuLateral } from './components/MenuLateral'
+import { AvisoCarrito } from './components/AvisoCarrito'
 import './styles/StyleModerno.css'
 
 function App() {
@@ -15,6 +16,9 @@ function App() {
   const [categoriaSel, setCategoriaSel] = useState("Todos"); // Estado para filtrar categorías
   const [subCategoriaSel, setSubCategoriaSel] = useState("Todos");
   const [carrito, setCarrito] = useState([]); // Para que el icono ya tenga vida
+  //estados para mostrar productos agregados
+  const [mostrarAviso, setMostrarAviso] = useState(false);
+  const [ultimoAgregado, setUltimoAgregado] = useState(null);
   // 2. El "Vigilante" (useEffect) que pide los datos al cargar la página
   useEffect(() => {
     // La URL de tu API en el Apache de WSL
@@ -55,6 +59,28 @@ const productosFinales = productos
     if (orden === "nombre-za") return b.Nombre.localeCompare(a.Nombre);
     return 0; // Sin orden si no hay selección
   });
+
+//Funcion del carrito
+const agregarAlCarrito = (producto) => {
+  setCarrito((prev) => {
+    const existe = prev.find((item) => item.id === producto.id);
+    if (existe) {
+      return prev.map((item) =>
+        item.id === producto.id ? { ...item, cantidad: item.cantidad + 1 } : item
+      );
+    }
+    return [...prev, { ...producto, cantidad: 1 }];
+  });
+
+  // CONFIGURAMOS EL AVISO PRO
+  setUltimoAgregado(producto);
+  setMostrarAviso(true);
+
+  // Se quita solo después de 3 segundos
+  setTimeout(() => {
+    setMostrarAviso(false);
+  }, 5000);
+};
     
   return (
     <div className="main-layout">
@@ -114,6 +140,9 @@ const productosFinales = productos
             <svg xmlns="http://www.w3.org/2000/svg" className="cart-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
             </svg>
+            {carrito.length > 0 && (
+              <span className="cart-badge">{carrito.reduce((acc, p) => acc + p.cantidad, 0)}</span>
+            )}
           </a>
         </div>
     </header>
@@ -142,10 +171,19 @@ const productosFinales = productos
 
         <div className="product-grid">
           {productosFinales.map(peluche => (
-            <TarjetaPeluche key={peluche.id} producto={peluche} />
+            <TarjetaPeluche 
+              key={peluche.id}
+              producto={peluche} 
+              //con esto pasamos la tarjeta al carrito
+              agregar={agregarAlCarrito} 
+              />
           ))}
         </div>
       </main>
+      <AvisoCarrito 
+      visible={mostrarAviso} 
+      producto={ultimoAgregado} 
+    />
     </div>
   );
 }

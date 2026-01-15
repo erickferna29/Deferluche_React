@@ -754,3 +754,74 @@ body {
 .sub-menu li:hover {
   color: #ff6b35;
 }
+.cart-icon-container { 
+  position: relative; 
+}
+.cart-badge {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  background: #ff6b35;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+  font-weight: bold;
+}
+.aviso-carrito-toast {
+  position: fixed;
+  top: 80px; /* Debajo de tu navbar */
+  right: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  width: 300px;
+  z-index: 2000;
+  padding: 15px;
+  animation: slideIn 0.3s ease-out;
+  border-left: 5px solid #2ecc71; /* Verde éxito como Mercado Libre */
+}
+
+.aviso-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #2ecc71;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.aviso-body {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.aviso-body img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.aviso-info strong {
+  display: block;
+  font-size: 14px;
+  color: #333;
+}
+
+.btn-ir-carrito {
+  width: 100%;
+  margin-top: 15px;
+  background: #3483fa; /* Azul Mercado Libre */
+  color: white;
+  border: none;
+  padding: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}

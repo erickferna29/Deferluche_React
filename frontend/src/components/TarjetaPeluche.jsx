@@ -1,6 +1,6 @@
 import '../styles/StyleModerno.css'; 
 
-export function TarjetaPeluche({ producto }) {
+export function TarjetaPeluche({ producto, agregar }) {
   return (
     <article className="peluche-card"> {/* Clase del nuevo CSS */}
       <img 
@@ -14,7 +14,11 @@ export function TarjetaPeluche({ producto }) {
         ${Number(producto.Precio).toFixed(2)}
       </p>
       
-      <button className="btn-add"> {/* Clase del nuevo CSS */}
+      <button
+        className="btn-add" 
+        //al presionar se ejecuta la funcion
+        onClick={() => agregar(producto)} 
+      > {/* Clase del nuevo CSS */}
         AÑADIR AL CARRITO
       </button>
     </article>
