@@ -38,28 +38,33 @@ function App() {
     p.Nombre.toLowerCase().includes(busqueda.toLowerCase())
   );
   //mejora Filtra por búsqueda Y por categoría seleccionada
-const productosFinales = productos.filter(p => {
-  const cumpleNombre = p.Nombre.toLowerCase().includes(busqueda.toLowerCase());
-  
-  // Filtro de Categoría (Peluches, Muñecas, etc.)
-  const cumpleCat = categoriaSel === "Todos" || p.Categoria === categoriaSel;
-  
-  // Filtro de Subcategoría (Monster High, Anime, etc.)
-  // IMPORTANTE: p.Sub_Categoria debe coincidir con el nombre de tu columna en MySQL
-  const cumpleSubCat = subCategoriaSel === "Todos" || p.Sub_Categoria === subCategoriaSel;
+// Filtra por búsqueda, por categoría y subcategoria seleccionada
+const productosFinales = productos
+  .filter(p => {
+    const cumpleNombre = p.Nombre.toLowerCase().includes(busqueda.toLowerCase());
+    const cumpleCat = categoriaSel === "Todos" || p.Categoria === categoriaSel;
+    const cumpleSubCat = subCategoriaSel === "Todos" || p.Sub_Categoria === subCategoriaSel;
 
-  return cumpleNombre && cumpleCat && cumpleSubCat;
-});
+    return cumpleNombre && cumpleCat && cumpleSubCat;
+  })
+  // AQUÍ ESTABA EL FALTANTE: El bloque .sort()
+  .sort((a, b) => {
+    if (orden === "precio-menor") return Number(a.Precio) - Number(b.Precio);
+    if (orden === "precio-mayor") return Number(b.Precio) - Number(a.Precio);
+    if (orden === "nombre-az") return a.Nombre.localeCompare(b.Nombre);
+    if (orden === "nombre-za") return b.Nombre.localeCompare(a.Nombre);
+    return 0; // Sin orden si no hay selección
+  });
     
   return (
     <div className="main-layout">
       {/* 1. EL MENÚ LATERAL (DRAWER) */}
 <MenuLateral 
-      abierto={menuAbierto} 
-      cerrar={() => setMenuAbierto(false)}
-      setCat={setCategoriaSel}
-      setSubCat={setSubCategoriaSel} // <--- PASAMOS LA FUNCIÓN
-    />
+  abierto={menuAbierto} 
+  cerrar={() => setMenuAbierto(false)}
+  setCat={setCategoriaSel}
+  setSubCat={setSubCategoriaSel} 
+/>
       <header className="navbar-pro">
       {/* SECCIÓN IZQUIERDA: MENÚ + LOGO */}
         <div className="navbar-left">
