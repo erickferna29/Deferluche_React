@@ -825,3 +825,27 @@ body {
   from { transform: translateX(100%); opacity: 0; }
   to { transform: translateX(0); opacity: 1; }
 }
+/* Este código solo se activa en pantallas de 600px o menos */
+@media (max-width: 600px) {
+  .aviso-carrito-toast {
+    width: 85%;            /* Ocupa casi todo el ancho de la pantalla */
+    right: 5%;             /* Lo centra dejando un pequeño margen a los lados */
+    top: 65px;             /* Lo pegamos más al navbar de móvil */
+    padding: 10px;         /* Reducimos el espacio interno */
+    border-radius: 12px;   /* Bordes un poco más redondeados para que se vea moderno */
+  }
+
+  .aviso-body img {
+    width: 50px;           /* Imagen un poco más pequeña */
+    height: 50px;
+  }
+
+  .aviso-info strong {
+    font-size: 13px;       /* Texto un poco más chico para que no se amontone */
+  }
+
+  .btn-ir-carrito {
+    padding: 10px;         /* Botón más alto para que sea fácil de picar con el dedo */
+    font-size: 14px;
+  }
+}
